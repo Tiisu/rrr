@@ -12,6 +12,10 @@ import FacultyScreen from '../pages/Faculty';
 import FacultyDetailScreen from '../pages/FacultyDetail';
 import NewsScreen from '../pages/News';
 import NewsDetailScreen from '../pages/NewsDetail';
+import EventsScreen from '../pages/Events';
+import EventDetailScreen from '../pages/EventDetail';
+import TimetableScreen from '../pages/Timetable';
+import ContactScreen from '../pages/Contact';
 import DepartmentDetailScreen from '../pages/DepartmentDetail';
 import NotFoundScreen from '../pages/NotFound';
 
@@ -24,6 +28,7 @@ export type RootStackParamList = {
   CourseDetail: { id: string };
   FacultyDetail: { id: string };
   NewsDetail: { id: string };
+  EventDetail: { id: string };
   DepartmentDetail: undefined;
   NotFound: undefined;
 };
@@ -32,6 +37,9 @@ export type BottomTabParamList = {
   Home: undefined;
   Courses: undefined;
   Faculty: undefined;
+  Events: undefined;
+  Timetable: undefined;
+  Contact: undefined;
   News: undefined;
 };
 
@@ -77,6 +85,33 @@ const BottomTabNavigator = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="people" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Events"
+        component={EventsScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="event" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Timetable"
+        component={TimetableScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="schedule" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Contact"
+        component={ContactScreen}
+        options={{
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="mail" size={size} color={color} />
           ),
         }}
       />
@@ -132,6 +167,13 @@ const AppNavigator = () => {
           component={NewsDetailScreen}
           options={({ route }) => ({
             title: 'Announcement',
+          })}
+        />
+        <Stack.Screen
+          name="EventDetail"
+          component={EventDetailScreen}
+          options={({ route }) => ({
+            title: 'Event Details',
           })}
         />
         <Stack.Screen

@@ -1,4 +1,4 @@
-import { Department, Course, FacultyMember, Announcement } from '../types';
+import { Department, Course, FacultyMember, Announcement, Event, Timetable, TimeSlot } from '../types';
 
 export const departmentData: Department = {
   name: "Computer Science Department",
@@ -45,7 +45,7 @@ export const coursesData: Course[] = [
     title: "Data Structures and Algorithms",
     description: "Study of data structures such as arrays, linked lists, stacks, queues, trees, and graphs. Analysis of algorithms and their efficiency.",
     level: "Level 200",
-    creditHours: 4,
+    creditHours: 3,
     prerequisites: ["CS 102"]
   },
   {
@@ -95,10 +95,10 @@ export const coursesData: Course[] = [
   },
   {
     id: "mcs501",
-    code: "MCS 501",
+    code: "CSC 501",
     title: "Advanced Algorithms",
     description: "Advanced study of algorithm design and analysis techniques.",
-    level: "MSc",
+    level: "Level 500",
     creditHours: 3,
     prerequisites: ["CS 401"]
   }
@@ -196,5 +196,249 @@ export const announcementsData: Announcement[] = [
     content: "We are proud to announce that our department has won the National Innovation Award for the project 'AI for Agricultural Optimization' led by Dr. Kofi Mensah and a team of final year students.",
     timestamp: new Date(2023, 8, 10), // September 10, 2023
     category: "Achievement"
+  }
+];
+
+export const eventsData: Event[] = [
+  {
+    id: "evt1",
+    title: "Annual CS Department Hackathon",
+    description: "Join us for a 24-hour coding challenge to solve real-world problems. Teams of up to 4 students will compete for prizes and recognition. Food and refreshments will be provided. Bring your laptop and your creativity!",
+    startDate: new Date(2023, 10, 15, 9, 0), // Nov 15, 2023, 9:00 AM
+    endDate: new Date(2023, 10, 16, 9, 0),   // Nov 16, 2023, 9:00 AM
+    location: "CS Building, Main Lab",
+    organizer: "CS Student Association",
+    registrationRequired: true,
+    registrationLink: "https://uds-cs-hackathon.com"
+  },
+  {
+    id: "evt2",
+    title: "Workshop: Introduction to Machine Learning",
+    description: "This hands-on workshop will introduce participants to the basics of machine learning using Python and scikit-learn. No prior experience with machine learning is required, but basic Python knowledge is recommended.",
+    startDate: new Date(2023, 9, 20, 14, 0), // Oct 20, 2023, 2:00 PM
+    endDate: new Date(2023, 9, 20, 17, 0),   // Oct 20, 2023, 5:00 PM
+    location: "CS Building, Room 105",
+    organizer: "Dr. Kofi Mensah",
+    registrationRequired: true
+  },
+  {
+    id: "evt3",
+    title: "CS Department End of Year Celebration",
+    description: "Join us to celebrate the achievements of the CS Department this year. There will be presentations, awards, and refreshments. All students, faculty, and staff are welcome to attend.",
+    startDate: new Date(2023, 11, 10, 16, 0), // Dec 10, 2023, 4:00 PM
+    endDate: new Date(2023, 11, 10, 19, 0),   // Dec 10, 2023, 7:00 PM
+    location: "University Main Hall",
+    organizer: "CS Department",
+    registrationRequired: false
+  },
+  {
+    id: "evt4",
+    title: "Guest Lecture: Cybersecurity in the Digital Age",
+    description: "A renowned cybersecurity expert will discuss current trends and challenges in the field of cybersecurity. Learn about career opportunities and the skills needed to succeed in this rapidly growing field.",
+    startDate: new Date(2023, 9, 5, 11, 0), // Oct 5, 2023, 11:00 AM
+    endDate: new Date(2023, 9, 5, 13, 0),   // Oct 5, 2023, 1:00 PM
+    location: "CS Auditorium",
+    organizer: "Dr. Kwame Boateng",
+    registrationRequired: false
+  },
+  {
+    id: "evt5",
+    title: "Career Fair: Tech Companies Recruitment",
+    description: "Representatives from leading tech companies will be on campus to discuss job and internship opportunities. Bring your resume and be prepared for on-the-spot interviews. Professional attire is recommended.",
+    startDate: new Date(2023, 10, 8, 9, 0),  // Nov 8, 2023, 9:00 AM
+    endDate: new Date(2023, 10, 8, 16, 0),   // Nov 8, 2023, 4:00 PM
+    location: "University Career Center",
+    organizer: "Career Services & CS Department",
+    registrationRequired: true,
+    registrationLink: "https://uds-career-fair.com"
+  }
+];
+
+export const timetablesData: Timetable[] = [
+  {
+    id: "tt1",
+    name: "Level 100 First Semester",
+    academicYear: "2023/2024",
+    semester: "First",
+    slots: [
+      {
+        day: "Monday",
+        startTime: "09:00",
+        endTime: "11:00",
+        courseCode: "CS 101",
+        courseTitle: "Introduction to Computer Science",
+        room: "LT1",
+        lecturer: "Dr. Kofi Mensah"
+      },
+      {
+        day: "Monday",
+        startTime: "13:00",
+        endTime: "15:00",
+        courseCode: "MATH 101",
+        courseTitle: "Calculus I",
+        room: "LT2",
+        lecturer: "Dr. Abena Darkwah"
+      },
+      {
+        day: "Tuesday",
+        startTime: "09:00",
+        endTime: "11:00",
+        courseCode: "CS 102",
+        courseTitle: "Programming Fundamentals",
+        room: "CS Lab 1",
+        lecturer: "Mr. Emmanuel Tetteh"
+      },
+      {
+        day: "Wednesday",
+        startTime: "11:00",
+        endTime: "13:00",
+        courseCode: "CS 101",
+        courseTitle: "Introduction to Computer Science",
+        room: "LT1",
+        lecturer: "Dr. Kofi Mensah"
+      },
+      {
+        day: "Thursday",
+        startTime: "14:00",
+        endTime: "16:00",
+        courseCode: "CS 102",
+        courseTitle: "Programming Fundamentals",
+        room: "CS Lab 1",
+        lecturer: "Mr. Emmanuel Tetteh"
+      },
+      {
+        day: "Friday",
+        startTime: "09:00",
+        endTime: "11:00",
+        courseCode: "MATH 101",
+        courseTitle: "Calculus I",
+        room: "LT2",
+        lecturer: "Dr. Abena Darkwah"
+      }
+    ]
+  },
+  {
+    id: "tt2",
+    name: "Level 200 First Semester",
+    academicYear: "2023/2024",
+    semester: "First",
+    slots: [
+      {
+        day: "Monday",
+        startTime: "08:00",
+        endTime: "10:00",
+        courseCode: "CS 201",
+        courseTitle: "Data Structures and Algorithms",
+        room: "LT3",
+        lecturer: "Dr. Ama Owusu"
+      },
+      {
+        day: "Monday",
+        startTime: "14:00",
+        endTime: "16:00",
+        courseCode: "CS 202",
+        courseTitle: "Database Management Systems",
+        room: "CS Lab 2",
+        lecturer: "Mrs. Abena Darkwah"
+      },
+      {
+        day: "Tuesday",
+        startTime: "10:00",
+        endTime: "12:00",
+        courseCode: "MATH 201",
+        courseTitle: "Discrete Mathematics",
+        room: "LT4",
+        lecturer: "Dr. Kwame Boateng"
+      },
+      {
+        day: "Wednesday",
+        startTime: "13:00",
+        endTime: "15:00",
+        courseCode: "CS 201",
+        courseTitle: "Data Structures and Algorithms",
+        room: "CS Lab 2",
+        lecturer: "Dr. Ama Owusu"
+      },
+      {
+        day: "Thursday",
+        startTime: "09:00",
+        endTime: "11:00",
+        courseCode: "CS 202",
+        courseTitle: "Database Management Systems",
+        room: "LT3",
+        lecturer: "Mrs. Abena Darkwah"
+      },
+      {
+        day: "Friday",
+        startTime: "11:00",
+        endTime: "13:00",
+        courseCode: "MATH 201",
+        courseTitle: "Discrete Mathematics",
+        room: "LT4",
+        lecturer: "Dr. Kwame Boateng"
+      }
+    ]
+  },
+  {
+    id: "tt3",
+    name: "Level 300 First Semester",
+    academicYear: "2023/2024",
+    semester: "First",
+    slots: [
+      {
+        day: "Monday",
+        startTime: "10:00",
+        endTime: "12:00",
+        courseCode: "CS 301",
+        courseTitle: "Software Engineering",
+        room: "LT5",
+        lecturer: "Dr. Ama Owusu"
+      },
+      {
+        day: "Tuesday",
+        startTime: "14:00",
+        endTime: "16:00",
+        courseCode: "CS 302",
+        courseTitle: "Computer Networks",
+        room: "CS Lab 3",
+        lecturer: "Dr. Kwame Boateng"
+      },
+      {
+        day: "Wednesday",
+        startTime: "09:00",
+        endTime: "11:00",
+        courseCode: "CS 303",
+        courseTitle: "Operating Systems",
+        room: "LT5",
+        lecturer: "Dr. Kofi Mensah"
+      },
+      {
+        day: "Thursday",
+        startTime: "11:00",
+        endTime: "13:00",
+        courseCode: "CS 301",
+        courseTitle: "Software Engineering",
+        room: "CS Lab 3",
+        lecturer: "Dr. Ama Owusu"
+      },
+      {
+        day: "Thursday",
+        startTime: "14:00",
+        endTime: "16:00",
+        courseCode: "CS 302",
+        courseTitle: "Computer Networks",
+        room: "LT5",
+        lecturer: "Dr. Kwame Boateng"
+      },
+      {
+        day: "Friday",
+        startTime: "13:00",
+        endTime: "15:00",
+        courseCode: "CS 303",
+        courseTitle: "Operating Systems",
+        room: "CS Lab 3",
+        lecturer: "Dr. Kofi Mensah"
+      }
+    ]
   }
 ];
