@@ -1,8 +1,8 @@
 import React from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
+import {
+  View,
+  Text,
+  StyleSheet,
   ScrollView,
   TouchableOpacity
 } from 'react-native';
@@ -24,9 +24,9 @@ const CourseDetail = () => {
   const route = useRoute<CourseDetailRouteProp>();
   const navigation = useNavigation<CourseDetailNavigationProp>();
   const { id } = route.params;
-  
+
   const course = coursesData.find(course => course.id === id);
-  
+
   if (!course) {
     return (
       <View style={styles.container}>
@@ -34,9 +34,9 @@ const CourseDetail = () => {
         <View style={styles.errorContainer}>
           <MaterialIcons name="error-outline" size={48} color={COLORS.error} />
           <Text style={styles.errorText}>Course not found</Text>
-          <Button 
-            title="Go Back" 
-            onPress={() => navigation.goBack()} 
+          <Button
+            title="Go Back"
+            onPress={() => navigation.goBack()}
             variant="primary"
             style={styles.backButton}
           />
@@ -48,22 +48,31 @@ const CourseDetail = () => {
   return (
     <View style={styles.container}>
       <PageHeader title={course.code} showBackButton />
-      
+
       <ScrollView style={styles.scrollView}>
         <View style={styles.header}>
           <Text style={styles.title}>{course.title}</Text>
-          <View style={styles.levelBadge}>
-            <Text style={styles.levelText}>{course.level}</Text>
+          <View style={styles.badgeContainer}>
+            <View style={styles.levelBadge}>
+              <Text style={styles.levelText}>{course.level}</Text>
+            </View>
+            <View style={[styles.trimesterBadge,
+              course.trimester === 'First' ? styles.firstTrimesterBadge :
+              course.trimester === 'Second' ? styles.secondTrimesterBadge :
+              styles.thirdTrimesterBadge
+            ]}>
+              <Text style={styles.trimesterText}>{course.trimester} Trimester</Text>
+            </View>
           </View>
         </View>
-        
+
         <Card>
           <CardContent>
             <Text style={styles.sectionTitle}>Description</Text>
             <Text style={styles.description}>{course.description}</Text>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardContent>
             <View style={styles.infoRow}>
@@ -72,20 +81,20 @@ const CourseDetail = () => {
                 <Text style={styles.infoLabel}>Credit Hours</Text>
                 <Text style={styles.infoValue}>{course.creditHours}</Text>
               </View>
-              
+
               <View style={styles.infoItem}>
                 <MaterialIcons name="list" size={20} color={COLORS.primary} />
                 <Text style={styles.infoLabel}>Prerequisites</Text>
                 <Text style={styles.infoValue}>
-                  {course.prerequisites.length > 0 
-                    ? course.prerequisites.join(', ') 
+                  {course.prerequisites.length > 0
+                    ? course.prerequisites.join(', ')
                     : 'None'}
                 </Text>
               </View>
             </View>
           </CardContent>
         </Card>
-        
+
         {course.prerequisites.length > 0 && (
           <Card style={styles.lastCard}>
             <CardContent>
@@ -93,7 +102,7 @@ const CourseDetail = () => {
               {course.prerequisites.map((prereq, index) => {
                 const prereqCourse = coursesData.find(c => c.code === prereq);
                 return (
-                  <TouchableOpacity 
+                  <TouchableOpacity
                     key={index}
                     style={styles.prerequisiteItem}
                     onPress={() => prereqCourse && navigation.push('CourseDetail', { id: prereqCourse.id })}
@@ -133,6 +142,11 @@ const styles = StyleSheet.create({
     color: COLORS.gray[800],
     marginBottom: SPACING.sm,
   },
+  badgeContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: SPACING.sm,
+  },
   levelBadge: {
     backgroundColor: COLORS.primary,
     paddingHorizontal: SPACING.md,
@@ -141,6 +155,25 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   levelText: {
+    color: COLORS.white,
+    fontWeight: '500',
+  },
+  trimesterBadge: {
+    paddingHorizontal: SPACING.md,
+    paddingVertical: SPACING.xs,
+    borderRadius: 4,
+    alignSelf: 'flex-start',
+  },
+  firstTrimesterBadge: {
+    backgroundColor: COLORS.success,
+  },
+  secondTrimesterBadge: {
+    backgroundColor: COLORS.warning,
+  },
+  thirdTrimesterBadge: {
+    backgroundColor: COLORS.info,
+  },
+  trimesterText: {
     color: COLORS.white,
     fontWeight: '500',
   },

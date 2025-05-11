@@ -7,12 +7,15 @@ export interface Department {
   achievements: string[];
 }
 
+export type Trimester = 'First' | 'Second' | 'Third';
+
 export interface Course {
   id: string;
   code: string;
   title: string;
   description: string;
   level: string;
+  trimester: Trimester;
   creditHours: number;
   prerequisites: string[];
 }
@@ -64,9 +67,10 @@ export interface TimeSlot {
 
 export interface Timetable {
   id: string;
-  name: string; // e.g., "Level 100 First Semester"
+  name: string; // e.g., "Level 100 First Trimester"
+  level: string; // e.g., "Level 100", "Level 200", etc.
   academicYear: string;
-  semester: 'First' | 'Second';
+  semester: 'First' | 'Second' | 'Third';
   slots: TimeSlot[];
 }
 
