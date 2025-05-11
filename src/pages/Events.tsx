@@ -1,9 +1,9 @@
 import React from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  FlatList, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
   TouchableOpacity,
   Linking
 } from 'react-native';
@@ -21,14 +21,18 @@ import { RootStackParamList } from '../navigation';
 
 type EventsScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Main'>;
 
-const Events = () => {
+interface EventsProps {
+  hideHeader?: boolean;
+}
+
+const Events = ({ hideHeader = false }: EventsProps) => {
   const navigation = useNavigation<EventsScreenNavigationProp>();
 
   const formatEventDate = (startDate: Date, endDate: Date) => {
-    const sameDay = startDate.getDate() === endDate.getDate() && 
-                    startDate.getMonth() === endDate.getMonth() && 
+    const sameDay = startDate.getDate() === endDate.getDate() &&
+                    startDate.getMonth() === endDate.getMonth() &&
                     startDate.getFullYear() === endDate.getFullYear();
-    
+
     if (sameDay) {
       return `${format(startDate, 'MMMM d, yyyy')} • ${format(startDate, 'h:mm a')} - ${format(endDate, 'h:mm a')}`;
     } else {
@@ -49,7 +53,7 @@ const Events = () => {
     <Card style={styles.eventCard}>
       <CardContent>
         <Text style={styles.eventTitle}>{item.title}</Text>
-        
+
         <View style={styles.eventDetails}>
           <View style={styles.detailRow}>
             <MaterialIcons name="event" size={18} color={COLORS.primary} style={styles.icon} />
@@ -57,33 +61,33 @@ const Events = () => {
               {formatEventDate(item.startDate, item.endDate)}
             </Text>
           </View>
-          
+
           <View style={styles.detailRow}>
             <MaterialIcons name="location-on" size={18} color={COLORS.primary} style={styles.icon} />
             <Text style={styles.detailText}>{item.location}</Text>
           </View>
-          
+
           <View style={styles.detailRow}>
             <MaterialIcons name="person" size={18} color={COLORS.primary} style={styles.icon} />
             <Text style={styles.detailText}>Organized by: {item.organizer}</Text>
           </View>
         </View>
-        
+
         <Text style={styles.eventDescription} numberOfLines={3}>
           {item.description}
         </Text>
-        
+
         <View style={styles.buttonContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.viewDetailsButton}
             onPress={() => navigation.navigate('EventDetail', { id: item.id })}
           >
             <Text style={styles.viewDetailsText}>View Details</Text>
           </TouchableOpacity>
-          
+
           {item.registrationRequired && (
-            <Button 
-              title="Register" 
+            <Button
+              title="Register"
               onPress={() => handleRegister(item.registrationLink)}
               variant="primary"
               style={styles.registerButton}
@@ -96,8 +100,8 @@ const Events = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader title="Events & Activities" />
-      
+      {!hideHeader && <PageHeader title="Events & Activities" />}
+
       <FlatList
         data={eventsData}
         renderItem={renderEventItem}

@@ -27,7 +27,11 @@ interface CourseSection {
   data: Course[];
 }
 
-const Courses = () => {
+interface CoursesProps {
+  hideHeader?: boolean;
+}
+
+const Courses = ({ hideHeader = false }: CoursesProps) => {
   const navigation = useNavigation<CoursesScreenNavigationProp>();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLevel, setSelectedLevel] = useState<string>('Level 100');
@@ -138,7 +142,7 @@ const Courses = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader title="Courses" />
+      {!hideHeader && <PageHeader title="Courses" />}
 
       <SearchBar
         value={searchTerm}

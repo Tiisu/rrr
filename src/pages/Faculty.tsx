@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  FlatList, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
   TouchableOpacity,
   Image
 } from 'react-native';
@@ -21,18 +21,22 @@ import { RootStackParamList } from '../navigation';
 
 type FacultyScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
-const Faculty = () => {
+interface FacultyProps {
+  hideHeader?: boolean;
+}
+
+const Faculty = ({ hideHeader = false }: FacultyProps) => {
   const navigation = useNavigation<FacultyScreenNavigationProp>();
   const [faculty, setFaculty] = useState<FacultyMember[]>(facultyData);
   const [searchTerm, setSearchTerm] = useState('');
-  
+
   useEffect(() => {
     if (searchTerm) {
       const filteredFaculty = facultyData.filter(
-        member => 
+        member =>
           member.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           member.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          member.researchInterests.some(interest => 
+          member.researchInterests.some(interest =>
             interest.toLowerCase().includes(searchTerm.toLowerCase())
           )
       );
@@ -49,14 +53,14 @@ const Faculty = () => {
       <Card style={styles.facultyCard}>
         <CardContent>
           <View style={styles.facultyCardContent}>
-            <Image 
-              source={{ uri: item.photoUrl }} 
-              style={styles.facultyImage} 
+            <Image
+              source={{ uri: item.photoUrl }}
+              style={styles.facultyImage}
             />
             <View style={styles.facultyInfo}>
               <Text style={styles.facultyName}>{item.name}</Text>
               <Text style={styles.facultyTitle}>{item.title}</Text>
-              
+
               <View style={styles.contactInfo}>
                 <View style={styles.contactItem}>
                   <MaterialIcons name="email" size={16} color={COLORS.primary} />
@@ -64,7 +68,7 @@ const Faculty = () => {
                     {item.email}
                   </Text>
                 </View>
-                
+
                 <View style={styles.contactItem}>
                   <MaterialIcons name="phone" size={16} color={COLORS.primary} />
                   <Text style={styles.contactText}>
@@ -82,14 +86,14 @@ const Faculty = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader title="Faculty" />
-      
+      {!hideHeader && <PageHeader title="Faculty" />}
+
       <SearchBar
         value={searchTerm}
         onChangeText={setSearchTerm}
         placeholder="Search faculty..."
       />
-      
+
       <FlatList
         data={faculty}
         renderItem={renderFacultyItem}

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  ScrollView, 
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
   TextInput,
   TouchableOpacity,
   Alert,
@@ -32,49 +32,53 @@ interface FormErrors {
   message?: string;
 }
 
-const Contact = () => {
+interface ContactProps {
+  hideHeader?: boolean;
+}
+
+const Contact = ({ hideHeader = false }: ContactProps) => {
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
-  
+
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  
+
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'Name is required';
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Email is invalid';
     }
-    
+
     if (!formData.subject.trim()) {
       newErrors.subject = 'Subject is required';
     }
-    
+
     if (!formData.message.trim()) {
       newErrors.message = 'Message is required';
     } else if (formData.message.trim().length < 10) {
       newErrors.message = 'Message must be at least 10 characters';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-  
+
   const handleSubmit = () => {
     if (validateForm()) {
       setIsSubmitting(true);
-      
+
       // Simulate API call
       setTimeout(() => {
         // In a real app, this would be sent to a backend API
@@ -84,12 +88,12 @@ const Contact = () => {
           timestamp: new Date(),
           status: 'Pending'
         };
-        
+
         console.log('Feedback submitted:', submission);
-        
+
         setIsSubmitting(false);
         setIsSubmitted(true);
-        
+
         // Reset form after successful submission
         setFormData({
           name: '',
@@ -100,13 +104,13 @@ const Contact = () => {
       }, 1500);
     }
   };
-  
+
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
-    
+
     // Clear error when user types
     if (errors[field]) {
       setErrors(prev => ({
@@ -115,18 +119,18 @@ const Contact = () => {
       }));
     }
   };
-  
+
   const resetForm = () => {
     setIsSubmitted(false);
   };
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <PageHeader title="Contact Us" />
-      
+      {!hideHeader && <PageHeader title="Contact Us" />}
+
       <ScrollView style={styles.scrollView}>
         {isSubmitted ? (
           <Card style={styles.successCard}>
@@ -137,8 +141,8 @@ const Contact = () => {
                 <Text style={styles.successMessage}>
                   Your message has been submitted successfully. We will get back to you as soon as possible.
                 </Text>
-                <Button 
-                  title="Send Another Message" 
+                <Button
+                  title="Send Another Message"
                   onPress={resetForm}
                   variant="primary"
                   style={styles.submitButton}
@@ -151,7 +155,7 @@ const Contact = () => {
             <Text style={styles.introText}>
               Have a question or feedback? Fill out the form below to get in touch with the Computer Science Department.
             </Text>
-            
+
             <Card style={styles.formCard}>
               <CardContent>
                 <View style={styles.formGroup}>
@@ -164,7 +168,7 @@ const Contact = () => {
                   />
                   {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
                 </View>
-                
+
                 <View style={styles.formGroup}>
                   <Text style={styles.label}>Email</Text>
                   <TextInput
@@ -177,7 +181,7 @@ const Contact = () => {
                   />
                   {errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
                 </View>
-                
+
                 <View style={styles.formGroup}>
                   <Text style={styles.label}>Subject</Text>
                   <TextInput
@@ -188,7 +192,7 @@ const Contact = () => {
                   />
                   {errors.subject && <Text style={styles.errorText}>{errors.subject}</Text>}
                 </View>
-                
+
                 <View style={styles.formGroup}>
                   <Text style={styles.label}>Message</Text>
                   <TextInput
@@ -202,8 +206,8 @@ const Contact = () => {
                   />
                   {errors.message && <Text style={styles.errorText}>{errors.message}</Text>}
                 </View>
-                
-                <Button 
+
+                <Button
                   title={isSubmitting ? "Submitting..." : "Submit"}
                   onPress={handleSubmit}
                   variant="primary"
@@ -212,11 +216,11 @@ const Contact = () => {
                 />
               </CardContent>
             </Card>
-            
+
             <Card style={styles.contactInfoCard}>
               <CardContent>
                 <Text style={styles.contactTitle}>Contact Information</Text>
-                
+
                 <View style={styles.contactItem}>
                   <MaterialIcons name="location-on" size={24} color={COLORS.primary} style={styles.contactIcon} />
                   <View>
@@ -224,7 +228,7 @@ const Contact = () => {
                     <Text style={styles.contactText}>Computer Science Department, University for Development Studies, Tamale, Ghana</Text>
                   </View>
                 </View>
-                
+
                 <View style={styles.contactItem}>
                   <MaterialIcons name="phone" size={24} color={COLORS.primary} style={styles.contactIcon} />
                   <View>
@@ -232,7 +236,7 @@ const Contact = () => {
                     <Text style={styles.contactText}>+233 20 123 4567</Text>
                   </View>
                 </View>
-                
+
                 <View style={styles.contactItem}>
                   <MaterialIcons name="email" size={24} color={COLORS.primary} style={styles.contactIcon} />
                   <View>

@@ -70,7 +70,11 @@ const requestStoragePermission = async () => {
   }
 };
 
-const Timetable = () => {
+interface TimetableProps {
+  hideHeader?: boolean;
+}
+
+const Timetable = ({ hideHeader = false }: TimetableProps) => {
   const [selectedLevel, setSelectedLevel] = useState<string>("Level 100");
   const [selectedTrimester, setSelectedTrimester] = useState<string>("First");
   const [hasPermission, setHasPermission] = useState<boolean>(Platform.OS !== 'android');
@@ -617,7 +621,7 @@ const Timetable = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader title="Class Timetable" />
+      {!hideHeader && <PageHeader title="Class Timetable" />}
 
       <View style={styles.filtersContainer}>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.levelFilters}>

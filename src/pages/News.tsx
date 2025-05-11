@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  FlatList, 
-  TouchableOpacity 
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -20,7 +20,11 @@ import { RootStackParamList } from '../navigation';
 
 type NewsScreenNavigationProp = StackNavigationProp<RootStackParamList>;
 
-const News = () => {
+interface NewsProps {
+  hideHeader?: boolean;
+}
+
+const News = ({ hideHeader = false }: NewsProps) => {
   const navigation = useNavigation<NewsScreenNavigationProp>();
   const [announcements] = useState<Announcement[]>(announcementsData);
 
@@ -56,12 +60,12 @@ const News = () => {
               </View>
             )}
           </View>
-          
+
           <Text style={styles.announcementTitle}>{item.title}</Text>
           <Text style={styles.announcementContent} numberOfLines={2}>
             {item.content}
           </Text>
-          
+
           <View style={styles.cardFooter}>
             <View style={styles.dateContainer}>
               <MaterialIcons name="access-time" size={16} color={COLORS.gray[500]} />
@@ -78,8 +82,8 @@ const News = () => {
 
   return (
     <View style={styles.container}>
-      <PageHeader title="News & Announcements" />
-      
+      {!hideHeader && <PageHeader title="News & Announcements" />}
+
       <FlatList
         data={announcements}
         renderItem={renderAnnouncementItem}

@@ -6,16 +6,13 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 // Import screens
 import HomeScreen from '../pages/Home';
-import CoursesScreen from '../pages/Courses';
+import AcademicsScreen from '../pages/Academics';
+import PeopleScreen from '../pages/People';
+import UpdatesScreen from '../pages/Updates';
 import CourseDetailScreen from '../pages/CourseDetail';
-import FacultyScreen from '../pages/Faculty';
 import FacultyDetailScreen from '../pages/FacultyDetail';
-import NewsScreen from '../pages/News';
 import NewsDetailScreen from '../pages/NewsDetail';
-import EventsScreen from '../pages/Events';
 import EventDetailScreen from '../pages/EventDetail';
-import TimetableScreen from '../pages/Timetable';
-import ContactScreen from '../pages/Contact';
 import DepartmentDetailScreen from '../pages/DepartmentDetail';
 import NotFoundScreen from '../pages/NotFound';
 
@@ -35,12 +32,9 @@ export type RootStackParamList = {
 
 export type BottomTabParamList = {
   Home: undefined;
-  Courses: undefined;
-  Faculty: undefined;
-  Events: undefined;
-  Timetable: undefined;
-  Contact: undefined;
-  News: undefined;
+  Academics: undefined;
+  People: undefined;
+  Updates: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -71,17 +65,17 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Courses"
-        component={CoursesScreen}
+        name="Academics"
+        component={AcademicsScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="book" size={size} color={color} />
+            <MaterialIcons name="school" size={size} color={color} />
           ),
         }}
       />
       <Tab.Screen
-        name="Faculty"
-        component={FacultyScreen}
+        name="People"
+        component={PeopleScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="people" size={size} color={color} />
@@ -89,35 +83,8 @@ const BottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Events"
-        component={EventsScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="event" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Timetable"
-        component={TimetableScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="schedule" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Contact"
-        component={ContactScreen}
-        options={{
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="mail" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="News"
-        component={NewsScreen}
+        name="Updates"
+        component={UpdatesScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="notifications" size={size} color={color} />
